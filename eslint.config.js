@@ -47,12 +47,7 @@ export default defineConfig([
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/operator-linebreak': ['error', 'after'],
       '@stylistic/padded-blocks': ['error', 'never'],
-      '@stylistic/padding-line-between-statements': [
-        'error',
-        {
-          blankLine: 'always', prev: '*', next: 'return',
-        },
-      ],
+      '@stylistic/padding-line-between-statements': ['error',{blankLine: 'always', prev: '*', next: 'return',},],
       '@stylistic/quote-props': ['error', 'consistent-as-needed'],
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/rest-spread-spacing': ['error', 'never'],
@@ -75,8 +70,8 @@ export default defineConfig([
       'no-unreachable': 'warn',
       'no-unused-vars': 'warn',
     },
-    extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser },
+    extends: ['js/recommended'], // Regler som den använder sig av
+    languageOptions: { globals: globals.browser }, // Vilket miljö det körs i detta fall webbläsaren
   },
   tseslint.configs.recommended,
 ]);
