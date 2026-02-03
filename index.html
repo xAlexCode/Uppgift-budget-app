@@ -1,81 +1,85 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fed25d-js-inl-2-budget-app-xalexcode</title>
-  </head>
-  <body>
-    <header>
-      <nav>
-        <h1>CashCat</h1>
-        <button id="meny">Meny</button>
-      </nav>
-    </header>
 
-    <main>
-      <div>
-        <p>Räkna ut din månadsbalans enkelt med CashCat. Mata in inkomster och utgifter för att få en sammanställning av balansen denna månad.</p>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fed25d-js-inl-2-budget-app-xalexcode</title>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <h1>CashCat</h1>
+      <button id="meny">Meny</button>
+    </nav>
+  </header>
+
+  <main>
+    <div>
+      <p>Räkna ut din månadsbalans enkelt med CashCat. Mata in inkomster och utgifter för att få en sammanställning av
+        balansen denna månad.</p>
+    </div>
+
+    <section>
+      <h2>Inkomster</h2>
+      <form>
+        <div class="form-group">
+          <label>
+            <span>Beskrivning</span>
+            <input id="incomeDescription" name="income-description" type="text">
+          </label>
+
+          <label>
+            <span>Belopp</span>
+            <input id="incomeAmount" name="income-amount" type="number">
+          </label>
+
+          <label>
+            <span>Välj Kategori</span>
+            <select id="incomeCategory"><!--Ska fixas med JSON?--></select>
+          </label>
+
+          <button id="saveIncomeBtn" type="button">Spara inkomst</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Utgifter</h2>
+      <form>
+        <div class="form-group">
+          <label>
+            <span>Beskrivning</span>
+            <input id="expenseDescription" name="expense-description" type="text">
+          </label>
+
+          <label>
+            <span>Belopp</span>
+            <input id="expenseAmount" name="expense-amount" type="number">
+          </label>
+
+          <label>
+            <span>Välj Kategori</span>
+            <select id="expenseCategory"><!--Ska fixas med JSON?--></select>
+          </label>
+
+          <button id="saveExpenseBtn" type="button">Spara utgift</button>
+        </div>
+      </form>
 
       <section>
-        <h2>Inkomster</h2>
-        <form>
-          <div class="form-group">
-            <label>
-              <span>Beskrivning</span>
-              <input id="income-description" name="income-description" type="text">
-            </label>
-
-            <label>
-              <span>Summa</span>
-              <input id="income-amount" name="income-amount" type="number">
-            </label>
-
-            <label>
-              <span>Välj Kategori</span>
-              <select><!--Ska fixas med JSON?--></select>
-            </label>
-
-            <button>Spara inkomst</button>
-          </div>
-        </form>
-      </section>
-
-      <section>
-        <h2>Utgifter</h2>
-       <form>
-          <div class="form-group">
-            <label>
-              <span>Beskrivning</span>
-              <input id="expense-description" name="expense-description" type="text">
-            </label>
-
-            <label>
-              <span>Summa</span>
-              <input id="expense-amount" name="expense-amount" type="number">
-            </label>
-
-            <label>
-              <span>Välj Kategori</span>
-              <select><!--Ska fixas med JSON?--></select>
-            </label>
-
-            <button>Spara utgift</button>
-          </div>
-        </form>
-
-      <section>
-        <div id="balance-card">
+        <div id="balanceCard">
           <h2>Balans</h2>
           <div id="listContainer"></div>
           <p id="balanceValue"></p>
         </div>
       </section>
 
-    </main>
-    <footer>@xAlexCode 2026</footer>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  </main>
+  <footer>@xAlexCode 2026</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
