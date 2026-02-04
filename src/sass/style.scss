@@ -1,5 +1,10 @@
 @use 'reset';
 
 body {
-    background-color: rgb(144, 174, 144);
+  background-color: rgb(144, 174, 144);
+}
+
+.error {
+  border: 2px solid red;
+  background-color: #ffe5e5;
 }

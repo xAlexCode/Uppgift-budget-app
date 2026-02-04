@@ -8,7 +8,8 @@ export default defineConfig([
   {
     files: ['**/*.{js,mjs,cjs,ts,mts,cts}'], // Stjärnor kollar samtliga filer, sen har vi valt
 
-    plugins: { // Plugin för javascript och EsLint Stylistic
+    plugins: {
+      // Plugin för javascript och EsLint Stylistic
       js,
       '@stylistic': stylistic,
     },
@@ -47,7 +48,12 @@ export default defineConfig([
       '@stylistic/object-curly-spacing': ['error', 'always'],
       '@stylistic/operator-linebreak': ['error', 'after'],
       '@stylistic/padded-blocks': ['error', 'never'],
-      '@stylistic/padding-line-between-statements': ['error',{blankLine: 'always', prev: '*', next: 'return',},],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'always', prev: '*', next: 'return',
+        },
+      ],
       '@stylistic/quote-props': ['error', 'consistent-as-needed'],
       '@stylistic/quotes': ['error', 'single'],
       '@stylistic/rest-spread-spacing': ['error', 'never'],
