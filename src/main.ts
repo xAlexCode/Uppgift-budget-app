@@ -2,7 +2,7 @@
 import './sass/style.scss';
 
 // Tom array som ska innehålla alla inkomster och utgifter, varje gång användaren sparar något skapas ett objekt som läggs här i listan.
-const budgetList = [];
+let budgetList = [];
 
 // ----------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------- Hämta from DOMEN --------------------------------------------------------
@@ -23,6 +23,10 @@ const listContainer = document.querySelector('#listContainer'); // Hämta själv
 // Formulär hämtas för att kunna göra en reset formuläret efter klick på spara inkomst/utgift
 const incomeForm = document.querySelector('#incomeForm');
 const expenseForm = document.querySelector('#expenseForm');
+
+// Hämtar elementet som ska visa den aktuella balansen. Det ska uppdateras varje gång listan ändras.
+const balanceValue = document.querySelector('#balanceValue');
+
 // ----------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------- Hämta knapparna ---------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
@@ -66,7 +70,7 @@ function handleIncome() {
   // Lägg till objektet i budgetlistan
   // Arrayn kommer växa för varje gång användaren sparar en inkomst
   budgetList.push(incomeObject);
-
+  saveToLocalStorage();
   renderList(); // Anropas för att uppdatera det som visas i DOM. När vi sparar en inkomst/utgift ändras bara arrayen (budgetList) och DOM uppdateras inte automatiskt
   incomeForm.reset(); // Tömmer inputfälten efter man har sparat inkomsten
 }
@@ -102,7 +106,7 @@ function handleExpense() {
   // Lägg till objektet i budgetlistan
   // Arrayn kommer växa för varje gång användaren sparar en utgift
   budgetList.push(expenseObject);
-
+  saveToLocalStorage(); // Spara till localstorage
   renderList(); // Anropas för att uppdatera det som visas i DOM. När vi sparar en inkomst/utgift ändras bara arrayen (budgetList) och DOM uppdateras inte automatiskt
   expenseForm.reset(); // Tömmer inputfälten efter man har sparat utgiften
 }
@@ -133,6 +137,8 @@ function renderList() {
   deleteButton.forEach((btn) => {
     btn.addEventListener('click', deleteBudgetPost);
   });
+
+  calculateBalance();
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------
@@ -143,30 +149,95 @@ function deleteBudgetPost(e) {
   const index = Number(e.target.dataset.index); // Hämtar index från knappen
 
   budgetList.splice(index, 1); // Tar bort rätt objekt i arrayen
-
+  saveToLocalStorage(); // Spara till localstorage
   renderList(); // Uppdaterar DOMEN
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------
-// --------------------------------------------------------- Delete funktion  -------------------------------------------------------
+// --------------------------------------------------------- Validera fälten  -------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
-
+// Syfte är att validera inkomster/utgifter så att man inte kan lägga till tomma budgetposter
+// Samt att man inte ska kunna lägga till negativa budgetposter
 function validateField(field) {
-  const value = field.value.trim(); // Tomt fält → fel
+  const value = field.value.trim(); // Hämtar fältets värde och tar bort onödiga mellanslag i början/slutet.
 
-  if (value === '') {
+  if (value === '') { // Kontrollera om fältet är tomt
+    field.classList.add('error'); // Markera fältet som ogiltigt
+
+    return false;
+  }
+
+  if (field.type === 'number' && (isNaN(Number(value)) || Number(value) <= 0)) { // Om det är ett number-fältkontrollera att det är ett giltigt nummer större än 0
     field.classList.add('error');
 
     return false;
-  } // Om det är ett number-fält → kontrollera att det är ett giltigt nummer
+  }
 
-  if (field.type === 'number' && (isNaN(Number(value)) || Number(value) <= 0)) {
-    field.classList.add('error');
-
-    return false;
-  } // Annars OK
-
-  field.classList.remove('error');
+  field.classList.remove('error'); // Om allt är okej, ta bort felmarkeringen
 
   return true;
 }
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------- Funktion balans --------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+// Ska räkna ut balansen/summan av inkomster och utgifter, se om det ger ett positivt/negativt resultat
+// Beroende på det ska det bli grönt för positivt och rött för negativt
+function calculateBalance() {
+  // Variabler som ska summeras behöver vara let eftersom värdet ska ändras i loopen
+  let totalIncome = 0;
+  let totalExpense = 0;
+
+  for (let i = 0; i < budgetList.length; i++) { // Loppar igenom alla objekt i budgetlistan
+    const item = budgetList[i]; // Hämta det aktuella objektet (inkomst/utgift)
+
+    if (item.type === 'income') { // Om det är en inkomst, lägg till beloppet i totalincome
+      totalIncome += item.amount;
+    } else if (item.type === 'expense') { // Om det är en utgift, lägg till beloppet i totalexpense
+      totalExpense += item.amount;
+    }
+  }
+
+  const balance = totalIncome - totalExpense; // Räkna ut balansen inkomster minus utgifter
+
+  balanceValue.textContent = `Totalt: ${balance} kr`; // Skriv ut balansen i DOM
+
+  // Färgkoda resultatet beroende på om det är positivt eller negativt
+  if (balance > 0) { // Om balance är likamed eller större än 0
+    balanceValue.classList.add('positive'); // Läggs CSS class positive
+    balanceValue.classList.remove('negative'); // Medans den negativa tas bort
+  } else if (balance < 0) { // Om balance är mindre än 0
+    balanceValue.classList.add('negative'); // Lägg till CSS class negative
+    balanceValue.classList.remove('positive'); // Ta bort positiva
+  } else { // Om det är likamed 0 ta bort båda klasserna
+    balanceValue.classList.remove('positive');
+    balanceValue.classList.remove('negative');
+  }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------- Funktion spara till LocalStorage -------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+// Sparar hela budgetList-arrayen i localStorage som en JSON-sträng
+// JSON.stringify omvandlar arrayen till text eftersom localStorage bara kan lagra strängar
+function saveToLocalStorage() {
+  localStorage.setItem('budgetList', JSON.stringify(budgetList));
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ Funktion läsa från LocalStorage -------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+// Läser in sparad data från localStorage när sidan laddas
+// Om det finns sparad data ersätter vi hela budgetList med den sparade arrayen
+// Detta är samma princip som lärarens exempel
+function loadFromLocalStorage() {
+  const saved = localStorage.getItem('budgetList'); // Hämtar strängen från localStorage
+  if (saved) {
+    budgetList = JSON.parse(saved); // Ersätter hela arrayen med den sparade
+  }
+}
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------- Ladda data vid sidstart ----------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+loadFromLocalStorage(); // När sidan laddas ska vi först läsa in eventuell sparad data
+renderList(); // Sedan renderar vi listan så att allt visas direkt i DOM
