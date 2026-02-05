@@ -1,0 +1,46 @@
+{
+    "expenses": [
+        {
+            "text": "Hyra",
+            "value": "living"
+        },
+        { 
+            "text": "Mat",
+            "value": "food"
+        },
+        { 
+            "text": "Försäkringar",
+            "value": "insurance"
+        },
+        { 
+            "text": "Nöje",
+            "value": "entertainment"
+        },
+        { 
+            "text": "Kläder",
+            "value": "clothing"
+        }
+    ],
+    "incomes": [
+        {
+           "text": "Lön",
+           "value": "salary"
+        },
+        {
+           "text": "Studiebidrag",
+           "value": "studentgrant"
+        },
+        {
+           "text": "Swish",
+           "value": "swish"
+        },
+        {
+           "text": "Bidrag",
+           "value": "contribution"
+        },
+        {
+           "text": "Utdelning",
+           "value": "dividend"
+        }
+    ]
+}

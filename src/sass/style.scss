@@ -1,18 +1,3 @@
 @use 'reset';
+@use 'mobile';
 
-body {
-  background-color: rgb(144, 174, 144);
-}
-
-.error {
-  border: 2px solid red;
-  background-color: #ffe5e5;
-}
-
-.positive {
-    color: green;
-}
-
-.negative {
-    color: red;
-}

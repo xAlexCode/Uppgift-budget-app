@@ -1,5 +1,6 @@
 // @ts-nocheck
 import './sass/style.scss';
+import categories from './categories.json';
 
 // Tom array som ska innehålla alla inkomster och utgifter, varje gång användaren sparar något skapas ett objekt som läggs här i listan.
 let budgetList = [];
@@ -235,6 +236,23 @@ function loadFromLocalStorage() {
   if (saved) {
     budgetList = JSON.parse(saved); // Ersätter hela arrayen med den sparade
   }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------- Fyll dropdown-menyerna med kategorier från JSON ----------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+// Redan hämtad högst upp i dokumentet till andra funktioner, därav återanvända ochi nte skapa ny const 
+// Om utgifts-dropdownen finns i DOM, loopa igenom alla kategorier i JSON-filen och lägg till varje kategori som ett <option>-element i dropdownen
+if (expenseCategory) {
+  categories.expenses.forEach((category) => {
+    expenseCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`
+  });
+}
+// Om income-dropdownen finns i DOM, loopa igenom alla kategorier i JSON-filen och lägg till varje kategori som ett <option>-element i dropdownen
+if (incomeCategory) {
+    categories.incomes.forEach((category) => {
+        incomeCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`
+    });
 }
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------- Ladda data vid sidstart ----------------------------------------------------------
