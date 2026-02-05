@@ -163,37 +163,44 @@ function validateField(field) {
   const value = field.value.trim(); // Hämtar fältets värde och tar bort onödiga mellanslag i början/slutet
   const messageElement = field.parentElement.querySelector('.error-message'); // Hittar <p class="error-message"> som ligger i samma <label> som fältet
 
-  //Validera nummer-fält, måste ligga överst
+  // Validera nummer-fält, måste ligga överst
   // Gäller bara om fältet är type="number", isNaN() kollar om värdet inte är ett nummer och Number(value) fångar 0 och negativa tal
   if (field.type === 'number' && (isNaN(Number(value)) || Number(value) <= 0)) {
-    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+    field.classList.add('error'); // Lägger CSS-klassen som ger röd border
     field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
     messageElement.textContent = 'Ange ett tal större än 0'; // Visar felmeddelandet under fältet
+
     return false; // Avbryter funktionen eftersom fältet är ogiltigt
   }
 
-  // Validera select fält 
+  // Validera select fält
   // SELECT är alltid versaler eftersom tagName returnerar HTML-taggar i uppercase och field.value === '' betyder att användaren inte valt något
-  if (field.tagName === 'SELECT' && field.value === '') { 
-    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+  if (field.tagName === 'SELECT' && field.value === '') {
+    field.classList.add('error'); // Lägger CSS-klassen som ger röd border
     field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
     messageElement.textContent = 'Välj en kategori'; // Visar felmeddelandet under fältet
-    return false;  // Avbryter funktionen eftersom fältet är ogiltigt
-    }
 
-    // Validera tomma textfält
-    // Textfältsvalideringen ligger sist eftersom value === '' även kan inträffa i andra fälttyper. Om denna regel låg först skulle den fånga tomma numberfält och selectfält innan deras mer specifika regler hinner köras. Därför måste textfältskontrollen komma sist, så att number och selectfälten får sina egna felmeddelanden först.
-   if (value === '') { // Kontrollera om fältet är tomt
-    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+    return false; // Avbryter funktionen eftersom fältet är ogiltigt
+  }
+
+  // Validera tomma textfält
+  // Textfältsvalideringen ligger sist eftersom value === '' även kan inträffa i andra fälttyper.
+  // Om denna regel låg först skulle den fånga tomma numberfält och selectfält innan deras mer specifika regler hinner köras.
+  // Därför måste textfältskontrollen komma sist, så att number och selectfälten får sina egna felmeddelanden först.
+  if (value === '') {
+    // Kontrollera om fältet är tomt
+    field.classList.add('error'); // Lägger CSS-klassen som ger röd border
     field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
     messageElement.textContent = 'Fyll i fältet'; // Visar felmeddelandet under fältet
-    return false; // Avbryter funktionen eftersom fältet är ogiltigt
-    } 
 
-    field.classList.remove('error'); // Om allt är okej, ta bort felmarkeringen
-    field.removeAttribute('aria-invalid'); 
-    messageElement.textContent = '';
-    return true;
+    return false; // Avbryter funktionen eftersom fältet är ogiltigt
+  }
+
+  field.classList.remove('error'); // Om allt är okej, ta bort felmarkeringen
+  field.removeAttribute('aria-invalid');
+  messageElement.textContent = '';
+
+  return true;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------
@@ -206,12 +213,15 @@ function calculateBalance() {
   let totalIncome = 0;
   let totalExpense = 0;
 
-  for (let i = 0; i < budgetList.length; i++) { // Loppar igenom alla objekt i budgetlistan
+  for (let i = 0; i < budgetList.length; i++) {
+    // Loppar igenom alla objekt i budgetlistan
     const item = budgetList[i]; // Hämta det aktuella objektet (inkomst/utgift)
 
-    if (item.type === 'income') { // Om det är en inkomst, lägg till beloppet i totalincome
+    if (item.type === 'income') {
+      // Om det är en inkomst, lägg till beloppet i totalincome
       totalIncome += item.amount;
-    } else if (item.type === 'expense') { // Om det är en utgift, lägg till beloppet i totalexpense
+    } else if (item.type === 'expense') {
+      // Om det är en utgift, lägg till beloppet i totalexpense
       totalExpense += item.amount;
     }
   }
@@ -221,13 +231,16 @@ function calculateBalance() {
   balanceValue.textContent = `Totalt: ${balance} kr`; // Skriv ut balansen i DOM
 
   // Färgkoda resultatet beroende på om det är positivt eller negativt
-  if (balance > 0) { // Om balance är likamed eller större än 0
+  if (balance > 0) {
+    // Om balance är likamed eller större än 0
     balanceValue.classList.add('positive'); // Läggs CSS class positive
     balanceValue.classList.remove('negative'); // Medans den negativa tas bort
-  } else if (balance < 0) { // Om balance är mindre än 0
+  } else if (balance < 0) {
+    // Om balance är mindre än 0
     balanceValue.classList.add('negative'); // Lägg till CSS class negative
     balanceValue.classList.remove('positive'); // Ta bort positiva
-  } else { // Om det är likamed 0 ta bort båda klasserna
+  } else {
+    // Om det är likamed 0 ta bort båda klasserna
     balanceValue.classList.remove('positive');
     balanceValue.classList.remove('negative');
   }
@@ -258,18 +271,18 @@ function loadFromLocalStorage() {
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------- Fyll dropdown-menyerna med kategorier från JSON ----------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
-// Redan hämtad högst upp i dokumentet till andra funktioner, därav återanvända och inte skapa ny const 
+// Redan hämtad högst upp i dokumentet till andra funktioner, därav återanvända och inte skapa ny const
 // Om utgifts-dropdownen finns i DOM, loopa igenom alla kategorier i JSON-filen och lägg till varje kategori som ett <option>-element i dropdownen
 if (expenseCategory) {
   categories.expenses.forEach((category) => {
-    expenseCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`
+    expenseCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`;
   });
 }
 // Om income-dropdownen finns i DOM, loopa igenom alla kategorier i JSON-filen och lägg till varje kategori som ett <option>-element i dropdownen
 if (incomeCategory) {
-    categories.incomes.forEach((category) => {
-        incomeCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`
-    });
+  categories.incomes.forEach((category) => {
+    incomeCategory.innerHTML += `<option value="${category.value}">${category.text}</option>`;
+  });
 }
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------- Ladda data vid sidstart ----------------------------------------------------------

@@ -51,7 +51,9 @@ export default defineConfig([
       '@stylistic/padding-line-between-statements': [
         'error',
         {
-          blankLine: 'always', prev: '*', next: 'return',
+          blankLine: 'always',
+          prev: '*',
+          next: 'return',
         },
       ],
       '@stylistic/quote-props': ['error', 'consistent-as-needed'],
