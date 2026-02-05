@@ -1,89 +1,104 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fed25d-js-inl-2-budget-app-xalexcode</title>
-  </head>
 
-  <body>
-    <header>
-      <nav>
-        <h1>CashCat</h1>
-        <button id="meny">Meny</button>
-      </nav>
-    </header>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Assignment 2 javascript simple budget app">
+  <title>fed25d-js-inl-2-budget-app-xalexcode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Fira+Code:wght@300..700&display=swap"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/lollipop.png">
+</head>
 
-    <main>
-      <div>
-        <p>
-          Räkna ut din månadsbalans enkelt med CashCat. Mata in inkomster och utgifter för att få en sammanställning av
-          balansen denna månad.
-        </p>
+<body>
+  <header>
+    <nav>
+      <h1>CashCount</h1>
+      <button id="meny">Meny</button>
+    </nav>
+  </header>
+
+  <main>
+    <div>
+      <p class="about">
+        Räkna ut din månadsbalans enkelt med CashCount. Mata in inkomster och utgifter för att få en sammanställning av
+        balansen denna månad.
+      </p>
+    </div>
+
+    <section>
+      <h2>Inkomster</h2>
+      <form id="incomeForm">
+        <div class="form-group">
+          <label>
+            <span>Beskrivning</span>
+            <input id="incomeDescription" name="income-description" type="text" required/>
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <label>
+            <span>Belopp</span>
+            <input id="incomeAmount" name="income-amount" type="number" required />
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <label>
+            <span>Välj Kategori</span>
+            <select id="incomeCategory">
+              <option value="" disabled selected>Välj kategori</option>
+            </select>
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <button id="saveIncomeBtn" type="button">Spara inkomst</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <h2>Utgifter</h2>
+      <form id="expenseForm">
+        <div class="form-group">
+          <label>
+            <span>Beskrivning</span>
+            <input id="expenseDescription" name="expense-description" type="text" required />
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <label>
+            <span>Belopp</span>
+            <input id="expenseAmount" name="expense-amount" type="number" required />
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <label>
+            <span>Välj Kategori</span>
+            <select id="expenseCategory">
+              <option value="" disabled selected>Välj kategori</option>
+            </select>
+            <p class="error-message" aria-live="polite"></p>
+          </label>
+
+          <button id="saveExpenseBtn" type="button">Spara utgift</button>
+        </div>
+      </form>
+    </section>
+
+    <section>
+      <div id="balanceCard">
+        <h2>Balans</h2>
+        <div id="listContainer"></div>
+        <p id="balanceValue">Totalt: 0 kr</p>
       </div>
+    </section>
+  </main>
+  <footer>@xAlexCode 2026</footer>
+  <script type="module" src="/src/main.ts"></script>
+</body>
 
-      <section>
-        <h2>Inkomster</h2>
-        <form id="incomeForm">
-          <div class="form-group">
-            <label>
-              <span>Beskrivning</span>
-              <input id="incomeDescription" name="income-description" type="text" required />
-            </label>
-
-            <label>
-              <span>Belopp</span>
-              <input id="incomeAmount" name="income-amount" type="number" required />
-            </label>
-
-            <label>
-              <span>Välj Kategori</span>
-              <select id="incomeCategory">
-                <option value="" disabled selected>Välj kategori</option>
-              </select>
-            </label>
-
-            <button id="saveIncomeBtn" type="button">Spara inkomst</button>
-          </div>
-        </form>
-      </section>
-
-      <section>
-        <h2>Utgifter</h2>
-        <form id="expenseForm">
-          <div class="form-group">
-            <label>
-              <span>Beskrivning</span>
-              <input id="expenseDescription" name="expense-description" type="text" required />
-            </label>
-
-            <label>
-              <span>Belopp</span>
-              <input id="expenseAmount" name="expense-amount" type="number" required />
-            </label>
-
-            <label>
-              <span>Välj Kategori</span>
-              <select id="expenseCategory">
-                <option value="" disabled selected>Välj kategori</option>
-              </select>
-            </label>
-
-            <button id="saveExpenseBtn" type="button">Spara utgift</button>
-          </div>
-        </form>
-
-        <section>
-          <div id="balanceCard">
-            <h2>Balans</h2>
-            <div id="listContainer"></div>
-            <p id="balanceValue">Totalt: 0 kr</p>
-          </div>
-        </section>
-      </section>
-    </main>
-    <footer>@xAlexCode 2026</footer>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
 </html>

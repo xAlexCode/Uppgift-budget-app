@@ -1,65 +1,234 @@
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------- COLORS ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+$backgroundColor: #496d4e;
+$cardBackground: #ebebeb;
+$accent: #3A6B47;
+$accentHover: #2A5236;
+$textDark: #292929;
+$textLight: #f0eeee;
+$errorColor: #a50a0a;
+$greenColor: #12671a;
+$border: #a0a0a0;
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------ BODY ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 body {
-  background-color: rgb(144, 174, 144);
   margin: 0;
- 
+  background-color: $backgroundColor;
+  color: $textDark;
+  padding-top: 80px;
+  font-family: 'fira sans', sans-serif;
+
+  h1,
+  h2{
+    font-family: 'dynapuff', system-ui;
+    letter-spacing: 1px;
+  }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------- HEADER ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 header {
-    position: sticky;
-    width: 100%;
-    background-color: white;
-    padding: 1rem;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: $cardBackground;
+  padding: 1rem 0.5rem;
+  z-index: 10;
 
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    nav {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0;
-
-        h1 {
-            margin-top: 0;
-            color: black;
-        }
-
-        #meny {
-            background-color: #eae6e6;
-            color: black;
-            padding: 0.6rem 0.6rem;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition:
-            background-color 0.2s ease,
-            transform 0.2s ease;
-
-            &:hover {
-              background-color: #fefefe;
-              color: #c1c1c1; 
-            }
-        }
+    h1 {
+      margin: 0;
     }
+
+    #meny {
+      background: $accent;
+      color: $textLight;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        background-color: $accentHover;
+      }
+    }
+  }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------ MAIN ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 main {
-    background-color: white;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .about {
+    color: $textLight;
+    padding: 1rem;
+    border: 1px solid $textLight;
     border-radius: 10px;
-    margin: 1rem;
+  }
 
-   
+  // Grid för inkomster + utgifter
+  .form-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  // Kort-stil för sektionerna
+  section {
+    background-color: $cardBackground;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------ FORM ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+  .form-group {
+    display: grid;
+    gap: 1rem;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+
+      span {
+        font-weight: 600;
+      }
+
+      input,
+      select {
+        padding: 0.5rem;
+        border-radius: 10px;
+        border: 1px solid $border;
+        font-size: 1rem;
+
+        &:focus {
+          outline: 2px solid $accentHover;
+        }
+      }
+    }
+
+    input.error, 
+    select.error {
+        border: 2px solid $errorColor;
+      }
+
+    button {
+      justify-self: center;
+      background: $accent;
+      color: $textLight;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: $accentHover;
+      }
+    }
+  }
+
+// ----------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------- BALANCE ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+  #balanceCard {
+    background-color: $cardBackground;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    article {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      align-items: center;
+      padding: 0.8rem;
+      border-radius: 10px;
+      background-color: $textLight;
+      gap: 0.5rem;
+      margin: 1rem 0;
+      border: 1px solid $border;
+
+      &.income {
+        border-left: 6px solid $greenColor;
+      }
+
+      &.expense {
+        border-left: 6px solid $errorColor;
+      }
+
+      .delete-btn {
+        background: #ffdddd;
+        border: none;
+        padding: 0.4rem 0.6rem;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background: #feacac;
+        }
+      }
+    }
+
+    p {
+        font-weight: 600;
+        text-align: center;
+        margin-top: 0;
+      }
+  }
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------------------------- FOOTER ---------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
 
-
-.error {
-  border: 2px solid red;
-  background-color: #ffe5e5;
+footer {
+  text-align: center;
+  gap: 1.5rem;
+  font-family: 'fira code', sans-serif;
+  font-size: 0.8rem;
+  color: $textLight;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin: 1rem;
 }
 
+// ----------------------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------- STATES ----------------------------------------------------------------
+// ----------------------------------------------------------------------------------------------------------------------------------
+
+//För visning av positiv balans
 .positive {
-    color: green;
+  color: $greenColor;
 }
-
+//För visning av negativ balans
 .negative {
-    color: red;
+  color: $errorColor;
+}
+//För error meddelande
+.error-message {
+    color: $errorColor; 
+    font-size: 0.9rem; 
+    margin-top: 0rem; 
 }

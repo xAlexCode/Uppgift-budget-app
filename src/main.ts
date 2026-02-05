@@ -160,23 +160,40 @@ function deleteBudgetPost(e) {
 // Syfte är att validera inkomster/utgifter så att man inte kan lägga till tomma budgetposter
 // Samt att man inte ska kunna lägga till negativa budgetposter
 function validateField(field) {
-  const value = field.value.trim(); // Hämtar fältets värde och tar bort onödiga mellanslag i början/slutet.
+  const value = field.value.trim(); // Hämtar fältets värde och tar bort onödiga mellanslag i början/slutet
+  const messageElement = field.parentElement.querySelector('.error-message'); // Hittar <p class="error-message"> som ligger i samma <label> som fältet
 
-  if (value === '') { // Kontrollera om fältet är tomt
-    field.classList.add('error'); // Markera fältet som ogiltigt
-
-    return false;
+  //Validera nummer-fält, måste ligga överst
+  // Gäller bara om fältet är type="number", isNaN() kollar om värdet inte är ett nummer och Number(value) fångar 0 och negativa tal
+  if (field.type === 'number' && (isNaN(Number(value)) || Number(value) <= 0)) {
+    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+    field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
+    messageElement.textContent = 'Ange ett tal större än 0'; // Visar felmeddelandet under fältet
+    return false; // Avbryter funktionen eftersom fältet är ogiltigt
   }
 
-  if (field.type === 'number' && (isNaN(Number(value)) || Number(value) <= 0)) { // Om det är ett number-fältkontrollera att det är ett giltigt nummer större än 0
-    field.classList.add('error');
+  // Validera select fält 
+  // SELECT är alltid versaler eftersom tagName returnerar HTML-taggar i uppercase och field.value === '' betyder att användaren inte valt något
+  if (field.tagName === 'SELECT' && field.value === '') { 
+    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+    field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
+    messageElement.textContent = 'Välj en kategori'; // Visar felmeddelandet under fältet
+    return false;  // Avbryter funktionen eftersom fältet är ogiltigt
+    }
 
-    return false;
-  }
+    // Validera tomma textfält
+    // Textfältsvalideringen ligger sist eftersom value === '' även kan inträffa i andra fälttyper. Om denna regel låg först skulle den fånga tomma numberfält och selectfält innan deras mer specifika regler hinner köras. Därför måste textfältskontrollen komma sist, så att number och selectfälten får sina egna felmeddelanden först.
+   if (value === '') { // Kontrollera om fältet är tomt
+    field.classList.add('error'); //Lägger CSS-klassen som ger röd border
+    field.setAttribute('aria-invalid', 'true'); // Markerar fältet som ogiltigt för skärmläsare (tillgänglighet)
+    messageElement.textContent = 'Fyll i fältet'; // Visar felmeddelandet under fältet
+    return false; // Avbryter funktionen eftersom fältet är ogiltigt
+    } 
 
-  field.classList.remove('error'); // Om allt är okej, ta bort felmarkeringen
-
-  return true;
+    field.classList.remove('error'); // Om allt är okej, ta bort felmarkeringen
+    field.removeAttribute('aria-invalid'); 
+    messageElement.textContent = '';
+    return true;
 }
 
 // ----------------------------------------------------------------------------------------------------------------------------------
@@ -241,7 +258,7 @@ function loadFromLocalStorage() {
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------- Fyll dropdown-menyerna med kategorier från JSON ----------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
-// Redan hämtad högst upp i dokumentet till andra funktioner, därav återanvända ochi nte skapa ny const 
+// Redan hämtad högst upp i dokumentet till andra funktioner, därav återanvända och inte skapa ny const 
 // Om utgifts-dropdownen finns i DOM, loopa igenom alla kategorier i JSON-filen och lägg till varje kategori som ett <option>-element i dropdownen
 if (expenseCategory) {
   categories.expenses.forEach((category) => {
