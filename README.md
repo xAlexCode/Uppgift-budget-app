@@ -18,4 +18,4 @@ Google Chrome Lighthouse ![Lighthouse](/public/img/lighthouse.png) Firefox ![Fir
 
 ### Bildkällor
 
--Favicon med Lollipop icon, Icon by [Smashicons](https://www.flaticon.com/authors/smashicons) on [Flaticon](https://www.flaticon.com/free-icons/lollipop)
+-Cash icon by [Freepik](https://www.flaticon.com/authors/freepik) on [Flaticon](https://www.flaticon.com/free-icons/cash)
