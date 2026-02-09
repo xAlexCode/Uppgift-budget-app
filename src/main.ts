@@ -1,9 +1,9 @@
-// @ts-nocheck
+import type { BudgetItem, BudgetList } from './model'; // Importerar endast typer (inte värden) från model.ts. BudgetItem beskriver hur en budgetpost ska se ut. BudgetList används för att typa arrayen budgetList i huvudfilen.
 import './sass/style.scss';
 import categories from './categories.json';
 
 // Tom array som ska innehålla alla inkomster och utgifter, varje gång användaren sparar något skapas ett objekt som läggs här i listan.
-let budgetList = [];
+let budgetList: BudgetList = []; // budgetList är nu typad med BudgetList från model.ts. Det betyder att arrayen bara får innehålla objekt som följer BudgetItem‑interfacet.
 
 // ----------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------- Hämta from DOMEN --------------------------------------------------------
@@ -45,7 +45,10 @@ saveExpenseBtn.addEventListener('click', handleExpense); // Knappen kommer spara
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------------- Funktion som tar hand om inkomster -----------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
-function handleIncome() {
+// handleIncome returnerar inget värde utan uppdaterar bara appens state och DOM.
+// Eftersom funktionen inte returnerar något används returtypen void.
+
+function handleIncome(): void {
   // Validera alla fält först. Om något fält är ogiltigt ska funktionen stoppas direkt.
   // På så sätt slipper vi hämta värden eller skapa objekt i onödan när input ändå inte är giltig.
   const valid = validateField(incomeDescription) && validateField(incomeAmount) && validateField(incomeCategory);
@@ -61,7 +64,7 @@ function handleIncome() {
 
   // Skapa ett objekt som representerar en inkomst
   // Samma princip som i förra uppgiften fast där hårdkodades varje medans här styrs det av vad användaren lägger in inputfältet
-  const incomeObject = {
+  const incomeObject: BudgetItem = {
     description: descriptionValue, // Beskrivning av inkomsten
     amount: Number(amountValue), // Summan, omvandlat från sträng till ett nummer
     category: categoryValue, // Kategorin som användare valt
@@ -79,8 +82,9 @@ function handleIncome() {
 // ----------------------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------------ Funktion som tar hand om utgifter -----------------------------------------------
 // ----------------------------------------------------------------------------------------------------------------------------------
-
-function handleExpense() {
+// handleExpense returnerar inget värde utan uppdaterar bara appens state och DOM.
+// Eftersom funktionen inte returnerar något används returtypen void.
+function handleExpense(): void {
   // Validera alla fält först. Om något fält är ogiltigt ska funktionen stoppas direkt.
   // På så sätt slipper vi hämta värden eller skapa objekt i onödan när input ändå inte är giltig.
   const valid = validateField(expenseDescription) && validateField(expenseAmount) && validateField(expenseCategory);
@@ -97,7 +101,7 @@ function handleExpense() {
   // Upprepande som förra funktionen
   // Skapa ett objekt som representerar en utgift
 
-  const expenseObject = {
+  const expenseObject: BudgetItem = {
     description: descriptionValue, // Beskrivning av inkomsten
     amount: Number(amountValue), // Summan, omvandlat från sträng till ett nummer
     category: categoryValue, // Kategorin som användare valt
