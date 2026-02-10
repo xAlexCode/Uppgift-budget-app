@@ -1,6 +1,6 @@
 # Information
 
-Detta är andra uppgiften i Javascript-kursen där vi ska skapa en jättesimpel budget app med javascript och typescript.
+Detta är andra uppgiften i Javascript-kursen där vi ska skapa en liten budget app med javascript och typescript. För att öva på att översätta kod från förra projektet i en mindre skala.
 
 ## Använda tekniker
 
@@ -8,13 +8,24 @@ Detta är andra uppgiften i Javascript-kursen där vi ska skapa en jättesimpel 
 
 ## Screenshots från projektet
 
-Google Chrome Lighthouse ![Lighthouse](/public/img/lighthouse.png) Firefox ![Firefox](/public/img/firefox.png) W3C HTML ![w3c](/public/img/w3c.png) W3C CSS Mockup på testflödet, med hjälp av miro, liten version ![Mockup testflödet av flöde miro (liten version)](/public/img/miro.png) Mockup på papper
+Google Chrome Lighthouse 
+![Lighthouse](/public/img/lighthouse.png) 
 
-![Mockup på papper](/public/img/mockup3.jpeg)
+Firefox 
+![Firefox](/public/img/firefox.png) 
 
-![Mockup på papper](/public/img/mockup2.jpeg)
+W3C HTML 
+![w3c](/public/img/w3c.png) 
 
-![Mockup på papper](/public/img/mockup1.jpeg)
+W3C CSS/SASS 
+![](/public/img/cssw3c.png) 
+
+Mockup på testflödet, med hjälp av miro, liten version 
+![Mockup testflödet av flöde miro (liten version)](/public/img/miro.png) 
+
+Mockup på papper
+![Mockup på papper](/public/img/mockup.jpeg)
+
 
 ### Bildkällor
 

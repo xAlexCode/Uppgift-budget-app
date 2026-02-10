@@ -1,18 +1,17 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Assignment 2 javascript simple budget app" />
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Assignment 2 javascript simple budget app">
     <title>fed25d-js-inl-2-budget-app-xalexcode</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Fira+Code:wght@300..700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="icon" type="image/png" href="/img/dollar.png" />
+      rel="stylesheet">
+    <link rel="icon" type="image/png" href="/img/dollar.png">
   </head>
 
   <body>
@@ -37,14 +36,14 @@
           <div class="form-group">
             <label>
               <span>Beskrivning</span>
-              <input id="incomeDescription" name="income-description" type="text" required />
-              <p class="error-message" aria-live="polite"></p>
+              <input id="incomeDescription" name="income-description" type="text" required>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <label>
               <span>Belopp</span>
-              <input id="incomeAmount" name="income-amount" type="number" required />
-              <p class="error-message" aria-live="polite"></p>
+              <input id="incomeAmount" name="income-amount" type="number" required>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <label>
@@ -52,7 +51,7 @@
               <select id="incomeCategory">
                 <option value="" disabled selected>Välj kategori</option>
               </select>
-              <p class="error-message" aria-live="polite"></p>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <button id="saveIncomeBtn" type="button">Spara inkomst</button>
@@ -66,14 +65,14 @@
           <div class="form-group">
             <label>
               <span>Beskrivning</span>
-              <input id="expenseDescription" name="expense-description" type="text" required />
-              <p class="error-message" aria-live="polite"></p>
+              <input id="expenseDescription" name="expense-description" type="text" required>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <label>
               <span>Belopp</span>
-              <input id="expenseAmount" name="expense-amount" type="number" required />
-              <p class="error-message" aria-live="polite"></p>
+              <input id="expenseAmount" name="expense-amount" type="number" required>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <label>
@@ -81,7 +80,7 @@
               <select id="expenseCategory">
                 <option value="" disabled selected>Välj kategori</option>
               </select>
-              <p class="error-message" aria-live="polite"></p>
+              <span class="error-message" aria-live="polite"></span>
             </label>
 
             <button id="saveExpenseBtn" type="button">Spara utgift</button>
