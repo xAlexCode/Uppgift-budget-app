@@ -1,9 +1,9 @@
-import type { BudgetItem, BudgetList } from './model'; // Importerar endast typer (inte värden) från model.ts. BudgetItem beskriver hur en budgetpost ska se ut. BudgetList används för att typa arrayen budgetList i huvudfilen.
+import type { IBudgetItem, IBudgetList } from './model'; // Importerar endast typer (inte värden) från model.ts. BudgetItem beskriver hur en budgetpost ska se ut. BudgetList används för att typa arrayen budgetList i huvudfilen.
 import './sass/style.scss';
 import categories from './categories.json';
 
 // Tom array som ska innehålla alla inkomster och utgifter, varje gång användaren sparar något skapas ett objekt som läggs här i listan.
-let budgetList: BudgetList = []; // budgetList är nu typad med BudgetList från model.ts. Det betyder att arrayen bara får innehålla objekt som följer BudgetItem‑interfacet.
+let budgetList: IBudgetList = []; // budgetList är nu typad med BudgetList från model.ts. Det betyder att arrayen bara får innehålla objekt som följer BudgetItem‑interfacet.
 
 // ----------------------------------------------------------------------------------------------------------------------------------
 // -------------------------------------------------------- Hämta from DOMEN --------------------------------------------------------
@@ -64,7 +64,7 @@ function handleIncome(): void {
 
   // Skapa ett objekt som representerar en inkomst
   // Samma princip som i förra uppgiften fast där hårdkodades varje medans här styrs det av vad användaren lägger in inputfältet
-  const incomeObject: BudgetItem = {
+  const incomeObject: IBudgetItem = {
     description: descriptionValue, // Beskrivning av inkomsten
     amount: Number(amountValue), // Summan, omvandlat från sträng till ett nummer
     category: categoryValue, // Kategorin som användare valt
@@ -101,7 +101,7 @@ function handleExpense(): void {
   // Upprepande som förra funktionen
   // Skapa ett objekt som representerar en utgift
 
-  const expenseObject: BudgetItem = {
+  const expenseObject: IBudgetItem = {
     description: descriptionValue, // Beskrivning av inkomsten
     amount: Number(amountValue), // Summan, omvandlat från sträng till ett nummer
     category: categoryValue, // Kategorin som användare valt
