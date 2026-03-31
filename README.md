@@ -1,6 +1,6 @@
 # Information
 
-Detta är andra uppgiften i Javascript-kursen där vi ska skapa en liten budget app med javascript och typescript. För att öva på att översätta kod från förra projektet i en mindre skala.
+Detta är andra uppgiften i Javascript-kursen där vi ska skapa en liten budget app med javascript och typescript. För att öva på att översätta kod från förra projektet i en mindre skala. 
 
 ## Använda tekniker
 
